@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제하기 - 메타필즈</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+        }
+
+        .payment-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .payment-header h1 {
+            color: #2F4F4F;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .course-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .course-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2F4F4F;
+            margin-bottom: 10px;
+        }
+
+        .price-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .payment-form {
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2F4F4F;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .payment-button {
+            width: 100%;
+            padding: 15px;
+            background: #40E0D0;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .payment-button:hover {
+            background: #3BC1B3;
+        }
+
+        .total-price {
+            font-size: 20px;
+            font-weight: 600;
+            color: #FF6B6B;
+            text-align: right;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-header">
+            <h1>결제하기</h1>
+            <p>안전하고 편리한 결제를 도와드립니다</p>
+        </div>
+
+        <div class="course-info">
+            <h2 class="course-title"></h2>
+            <div class="price-info">
+                <span>수강료</span>
+                <span class="original-price"></span>
+            </div>
+            <div class="price-info">
+                <span>할인금액</span>
+                <span class="discount-amount"></span>
+            </div>
+        </div>
+
+        <div class="total-price"></div>
+
+        <form class="payment-form" id="paymentForm">
+            <div class="form-group">
+                <label>이름</label>
+                <input type="text" id="buyerName" placeholder="이름을 입력해주세요" required>
+            </div>
+            <div class="form-group">
+                <label>연락처</label>
+                <input type="tel" id="buyerTel" placeholder="연락처를 입력해주세요" required>
+            </div>
+            <div class="form-group">
+                <label>이메일</label>
+                <input type="email" id="buyerEmail" placeholder="이메일을 입력해주세요" required>
+            </div>
+            <button type="submit" class="payment-button">결제하기</button>
+        </form>
+    </div>
+
+    <script>
+        let paymentData = {};
+
+        window.onload = function() {
+            // URL 파라미터 가져오기
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseName = urlParams.get('course') || '강좌명';
+            const originalPrice = urlParams.get('original');
+            const discountPrice = urlParams.get('discount');
+
+            // 결제 정보 저장
+            paymentData = {
+                name: courseName,
+                amount: parseInt(discountPrice) || 0
+            };
+
+            // 가격 포맷팅 함수
+            function formatPrice(price) {
+                if (!price) return '0';
+                return parseInt(price).toLocaleString('ko-KR');
+            }
+
+            // HTML 요소 업데이트
+            document.querySelector('.course-title').textContent = courseName;
+            document.querySelector('.original-price').textContent = `${formatPrice(originalPrice)}원`;
+            
+            // 할인금액 계산
+            const discountAmount = originalPrice - discountPrice;
+            document.querySelector('.discount-amount').textContent = `-${formatPrice(discountAmount)}원`;
+
+            // 최종 결제금액
+            document.querySelector('.total-price').textContent = `최종 결제금액: ${formatPrice(discountPrice)}원`;
+
+            // 포트원 초기화
+            const IMP = window.IMP;
+            IMP.init('imp60245316');
+
+            // 결제 폼 제출 처리
+            document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const buyerName = document.getElementById('buyerName').value;
+                const buyerTel = document.getElementById('buyerTel').value;
+                const buyerEmail = document.getElementById('buyerEmail').value;
+
+                if (!buyerName || !buyerTel || !buyerEmail) {
+                    alert('모든 필드를 입력해주세요.');
+                    return;
+                }
+
+                try {
+                    const response = await IMP.request_pay({
+                        pg: 'html5_inicis',           // PG사 선택 (이니시스)
+                        pay_method: 'card',           // 결제 수단
+                        merchant_uid: `order_${new Date().getTime()}`, // 주문번호
+                        name: paymentData.name,       // 주문명
+                        amount: paymentData.amount,   // 결제금액
+                        buyer_name: buyerName,        // 구매자 이름
+                        buyer_tel: buyerTel,          // 구매자 전화번호
+                        buyer_email: buyerEmail       // 구매자 이메일
+                    });
+
+                    if (response.success) {
+                        // 결제 성공 시
+                        alert('결제가 완료되었습니다.');
+                        // 결제 완료 페이지로 이동
+                        window.location.href = '/completion.html';
+                    } else {
+                        // 결제 실패 시
+                        alert(`결제에 실패했습니다: ${response.error_msg}`);
+                    }
+                } catch (error) {
+                    alert('결제 처리 중 오류가 발생했습니다: ' + error.message);
+                    console.error(error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

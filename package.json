@@ -1,0 +1,16 @@
+{
+  "name": "metapillzweb",
+  "version": "1.0.0",
+  "description": "Metapillz Web Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.46.1",
+    "axios": "^1.6.0",
+    "express": "^4.18.2",
+    "google-auth-library": "^9.14.2"
+  }
+}

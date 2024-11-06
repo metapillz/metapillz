@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>강남성 약사 소개 - 메타필즈</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffffff 0%, #e0ffff 100%);
+            min-height: 100vh;
+            padding-top: 152px;
+        }
+
+        .instructor-profile {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 40px;
+        }
+
+        /* 왼쪽 사이드바 */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .profile-image {
+            width: 220px;
+            height: 220px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .instructor-info h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .instructor-info p {
+            font-size: 16px;
+            color: #40E0D0;
+            margin-bottom: 20px;
+        }
+
+        .stats-list {
+            list-style: none;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        /* 메인 콘텐츠 */
+        .main-content {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .content-header {
+            margin-bottom: 40px;
+        }
+
+        .main-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #40E0D0;
+            margin-bottom: 30px;
+        }
+
+        .expertise-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .expertise-tag {
+            background: #ff9999;
+            padding: 20px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+            word-break: keep-all;
+            line-height: 1.4;
+        }
+
+        .expertise-tag:hover {
+            background: #ff8080;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(255,153,153,0.4);
+        }
+
+        .content-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #40E0D0;
+        }
+
+        .content-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        /* 사바 메뉴 스타일 */
+        .sidebar-menu {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .menu-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .menu-list {
+            list-style: none;
+        }
+
+        .menu-item {
+            margin-bottom: 10px;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            color: #666;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-link i {
+            font-size: 12px;
+            color: #40E0D0;
+        }
+
+        .menu-item.active .menu-link {
+            background: #f0ffff;
+            color: #40E0D0;
+            font-weight: 500;
+        }
+
+        .menu-link:hover {
+            background: #f0ffff;
+            color: #40E0D0;
+        }
+
+        /* 사이드바 간격 조정 */
+        .profile-image {
+            margin-top: 20px;
+        }
+
+        .menu-item-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f0ffff;
+            margin-bottom: 15px;
+        }
+
+        .menu-item.active .menu-item-wrapper {
+            background: #f0ffff;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 5px;
+        }
+
+        .menu-item.active .menu-link {
+            color: #40E0D0;
+            font-weight: 500;
+        }
+
+        .menu-link i {
+            color: #ff9999;
+            font-size: 14px;
+        }
+
+        .sidebar-enroll-button {
+            width: 100%;
+            background: #ff9999;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .sidebar-enroll-button:hover {
+            background: #ff8080;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(255,153,153,0.4);
+        }
+
+        .sidebar-enroll-button i {
+            font-size: 15px;
+        }
+
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .title-section {
+            flex: 1;
+        }
+
+        .header-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 기존 스타일 수정 */
+        .content-header {
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .main-title {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #40E0D0;
+            margin-bottom: 25px;
+        }
+
+        .detail-image-section {
+            margin-top: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #40E0D0;
+        }
+
+        .detail-image {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .detail-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        /* 선택사항: 이미지 호버 효과 */
+        .detail-image:hover img {
+            transform: scale(1.02);
+        }
+
+        .menu-link {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .menu-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .menu-subtitle {
+            font-size: 14px;
+            color: #666;
+            font-weight: normal;
+            padding-left: 24px;
+        }
+
+        .menu-price {
+            font-size: 13px;
+            color: #888;
+            padding-left: 24px;
+            line-height: 1.4;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .price-original {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 12px;
+        }
+
+        .price-label {
+            font-size: 12px;
+            color: #ff6b6b;
+            font-weight: 500;
+        }
+
+        .price-amount {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        .top-banner {
+            background: linear-gradient(to right, #40CFC0, #5ED4C8);
+            color: white;
+            padding: 8px 0;
+            font-family: 'Pretendard', sans-serif;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1002;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .banner-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .banner-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .banner-highlight {
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            color: #FFFFFF;
+        }
+
+        .banner-text {
+            font-size: 15px;
+            font-weight: 500;
+            opacity: 0.98;
+            color: #FFFFFF;
+        }
+
+        .banner-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .banner-right span {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.98;
+        }
+
+        .banner-right span:hover {
+            opacity: 1;
+            text-shadow: 0 0 10px rgba(255,255,255,0.6);
+        }
+
+        .banner-right .divider {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        /* 기존 헤더의 위치 조정 */
+        .utility-menu {
+            top: 36px;
+        }
+
+        .main-header {
+            top: 72px;
+        }
+
+        /* 본문 여백 조정 */
+        body {
+            padding-top: 152px;
+        }
+
+        .main-slider {
+            margin-top: 152px;
+        }
+
+        .notice-container {
+            margin-top: 0; /* 위쪽 마진을 0으로 설정 */
+            /* ... 기존 속성들 유지 ... */
+        }
+    </style>
+    <!-- Open Graph 태그 -->
+    <meta property="og:title" content="메타필즈 - 약사 부트캠프">
+    <meta property="og:description" content="여기를 눌러 링크를 확인하세요.">
+    <meta property="og:image" content="https://i.imgur.com/18U1T1Q.png">
+    <meta property="og:image:secure_url" content="https://i.imgur.com/18U1T1Q.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.metapillz.store/">
+    <meta property="og:site_name" content="메타필즈">
+    
+    <!-- Twitter 카드 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="메타필즈 - 약사 부트캠프">
+    <meta name="twitter:description" content="여기를 눌러 링크를 확인하세요.">
+    <meta name="twitter:image" content="https://i.imgur.com/18U1T1Q.png">
+</head>
+<body>
+    <!-- 최상단 배너 -->
+    <div class="top-banner">
+        <div class="banner-container">
+            <div class="banner-left">
+                <span class="banner-highlight">메타필즈</span>
+                <span class="banner-text">잘되는 약국 연구회</span>
+            </div>
+            <div class="banner-right">
+                <span onclick="window.location.href='/src/pages/login.html'">로그인</span>
+                <span class="divider">|</span>
+                <span onclick="window.location.href='/src/pages/signup.html'">회원가입</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="instructor-profile">
+        <!-- 왼쪽 사이드바 -->
+        <div class="sidebar">
+            <nav class="sidebar-menu">
+                <h3 class="menu-title">100점 약국 프로젝트</h3>
+                <ul class="menu-list">
+                    <li class="menu-item">
+                        <div class="menu-item-wrapper">
+                            
+                            <a href="#" class="menu-link">
+                                <div class="menu-title">
+                                    <i class="fas fa-chevron-right"></i>
+                                    OTC 증상별 심화상담
+                                </div>
+                                <div class="menu-subtitle">4주 과정</div>
+                                <div class="menu-price">
+                                    <span class="price-original">550,000원</span>
+                                    <span class="price-label">얼리버드 할인가</span><br>
+                                    <span class="price-amount">470,000원</span>
+                                </div>
+                            </a>
+                            <a href="./payment.html?course=OTC증상별심화상담&original=550000&discount=470000" class="sidebar-enroll-button">
+                                <i class="fas fa-shopping-cart"></i>
+                                수강신청
+                            </a>
+                        </div>
+                    </li>
+                    <li class="menu-item">
+                        <div class="menu-item-wrapper">
+                            <a href="#" class="menu-link">
+                                <div class="menu-title">
+                                    <i class="fas fa-chevron-right"></i>
+                                    매출UP!<br>동선/인테리어 컨설팅
+                                </div>
+                                <div class="menu-subtitle">1:1 맞춤 컨설팅</div>
+                                <div class="menu-price">
+                                    <span class="price-original">3,300,000원</span>
+                                    <span class="price-label">기초수강생 할인가</span><br>
+                                    <span class="price-amount">2,850,000</span>
+                                </div>
+                            </a>
+                            <a href="./payment.html?course=매출UP 약국 동선/인테리어 컨설팅&original=3300000&discount=2850000" class="sidebar-enroll-button">
+                                <i class="fas fa-shopping-cart"></i>
+                                수강신청
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="profile-image">
+                <img src="https://imgur.com/JXSJvLG.png" alt="이태영 강사">
+            </div>
+            <div class="instructor-info">
+                <h2>강남성 약사님</h2>
+                <p>깔끔은 기본이고, 매출을 부르는 인테리어</p>
+                <ul class="stats-list">
+                    <li class="stats-item">
+                        <span>전체 컨설팅</span>
+                        <span>27건</span>
+                    </li>
+                    <li class="stats-item">
+                        <span>완료</span>
+                        <span>24건</span>
+                    </li>
+                    <li class="stats-item">
+                        <span>진행중</span>
+                        <span>3건</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <div class="content-header" style="
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+            ">
+                <!-- 메인 타이틀 -->
+                <div style="
+                    width: 100%;
+                    background-color: #f8f9fa;
+                    padding: 25px 0;
+                    margin-bottom: 25px;
+                    border-bottom: 3px solid #eee;
+                ">
+                    <h1 style="
+                        font-size: 32px;
+                        font-weight: 700;
+                        letter-spacing: 1px;
+                        color: #333;
+                        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    ">어떻게 해야 100점 짜리 약국으로 만들까?</h1>
+                </div>
+
+                <!-- 서브 타이틀 -->
+                <h2 style="
+                    text-align: center;
+                    color: #00c7ae;
+                    font-size: 26px;
+                    font-weight: 700;
+                    margin: 15px 0;
+                    
+                    letter-spacing: 0.5px;
+                ">강남성 약사는, 다릅니다!</h2>
+
+                <!-- 그 버튼들 -->
+                <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 10px;
+                    padding: 0 20px;
+                    margin: 20px 0;
+                ">
+                    <button style="
+                        padding: 15px 25px;
+                        background-color: #7B68EE;
+                        color: white;
+                        border: none;
+                        border-radius: 25px;
+                        flex: 1;
+                        font-size: 18px;
+                        font-weight: 800;
+                        letter-spacing: -0.5px;
+                        white-space: nowrap;
+                        transition: background-color 0.3s;
+                        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+                    ">동선/인테리어</button>
+                    <button style="
+                        padding: 15px 25px;
+                        background-color: #7B68EE;
+                        color: white;
+                        border: none;
+                        border-radius: 25px;
+                        flex: 1;
+                        font-size: 18px;
+                        font-weight: 800;
+                        letter-spacing: -0.5px;
+                        white-space: nowrap;
+                        transition: background-color 0.3s;
+                        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+                    ">동선분석</button>
+                    <button style="
+                        padding: 15px 25px;
+                        background-color: #7B68EE;
+                        color: white;
+                        border: none;
+                        border-radius: 25px;
+                        flex: 1;
+                        font-size: 18px;
+                        font-weight: 800;
+                        letter-spacing: -0.5px;
+                        white-space: nowrap;
+                        transition: background-color 0.3s;
+                        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+                    ">매출분석</button>
+                    <button style="
+                        padding: 15px 25px;
+                        background-color: #7B68EE;
+                        color: white;
+                        border: none;
+                        border-radius: 25px;
+                        flex: 1;
+                        font-size: 18px;
+                        font-weight: 800;
+                        letter-spacing: -0.5px;
+                        white-space: nowrap;
+                        transition: background-color 0.3s;
+                        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+                    ">수익 분석</button>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="section-title">
+                    <i class="fas fa-check-circle"></i>
+                    전 경험을 바탕으로 한 노하우
+                </h3>
+                <p class="content-text">
+                    20년 이상의 약국 운영 경험을 바탕으로 환자중심 동선 설계 노하우 전달!<br>
+                    수많은 약국 개국과 경영을 통해 축적된 실전 경험과 노하우를 공유!<br>
+                    약국장님들의 성공적인 매출UP! 도우미!
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h3 class="section-title">
+                    <i class="fas fa-lightbulb"></i>
+                    강의 내용
+                </h3>
+                <p class="content-text">
+                    • 환자 중심 약국 동선.인테리어 분석: 상권 분석, 유동인구 분석, 경쟁 약국 현황!<br>
+                    • 수익성 분석: 예상 매출 분석, 비용 구조 분석, 손익분기점 계산!<br>
+                    • 실전 마케팅 전략: 인테리어, 초기 VMD 구성, POG!<br>
+                    • 약국 운영 노하우: 고 응대, VMD 카테고리 네이밍 노하우!
+                </p>
+            </div>
+
+            <!-- 상세보기 박스 -->
+            <div style="
+                background-color: #f8f9fa;
+                padding: 30px;
+                border-radius: 15px;
+                margin: 20px 0;
+            ">
+                <h3 style="
+                    font-size: 24px;
+                    font-weight: 600;
+                    color: #333;
+                    margin-bottom: 20px;
+                ">상세보기</h3>
+                
+                <p style="
+                    font-size: 16px;
+                    line-height: 1.6;
+                    color: #666;
+                    margin-bottom: 30px;
+                ">
+                    20년 이상의 약국 개국, 운영 경험을 통해 축적된 노하우를 바탕으로,<br>
+                    예비 약국장님들의 성공적인 약국 경영을 위한 모든 것을 알려드립니다!
+                </p>
+
+                <!-- 이미지 컨테이너 -->
+                <div style="
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                ">
+                    <img src="https://imgur.com/cXOC0vr.png" alt="컨설팅 사례" style="
+                        width: 100%;
+                        height: auto;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                    ">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // menu-link는 단순히 상세 정보를 보여주는 용도로만 사용
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                // 여기에 상세 정보를 보여주는 로직 추가
+            });
+        });
+    </script>
+</body>
+</html>
+

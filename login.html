@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - 메타필즈</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h1 class="logo">메타필즈</h1>
+            <p class="welcome-text">로그인</p>
+
+            
+            <form id="loginForm" class="auth-form">
+                <div class="input-group">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" name="email" 
+                           placeholder="이메일을 입력해주세요" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">비밀번호</label>
+                    <input type="password" id="password" name="password" 
+                           placeholder="비밀번호를 입력해주세요" required>
+                </div>
+                
+                <button type="submit" class="login-btn">로그인</button>
+            </form>
+            
+            <div class="divider">
+                <span>또는</span>
+            </div>
+            
+            <div class="social-login">
+                <div id="googleSignInDiv"></div>
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-shape="rectangular"
+                     data-theme="outline"
+                     data-text="signin_with"
+                     data-size="large"
+                     data-logo_alignment="left">
+                </div>
+            </div>
+            
+            <div class="signup-link">
+                아직 회원이 아니신가요? <a href="./signup.html">회원가입</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../lib/supabase.js"></script>
+    <script type="module" src="../js/login.js"></script>
+
+    <div id="g_id_onload"
+         data-client_id="288476295241-7us0t2tn1q4k8hfv84476lhaale4221o.apps.googleusercontent.com"
+         data-login_uri="https://www.metapillz.store/auth/callback"
+         data-auto_prompt="false">
+    </div>
+</body>
+</html>
+
