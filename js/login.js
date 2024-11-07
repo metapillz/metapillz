@@ -2,39 +2,12 @@ console.log('login.js 로드됨');
 
 import { supabase } from '../lib/supabase.js'
 
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault()
-    
-    const email = document.getElementById('email').value
-    const password = document.getElementById('password').value
-    
-    try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email: email,
-            password: password
-        })
-        
-        
-        
-        
-        if (error) {
-            alert('로그인 실패: ' + error.message)
-            return
-        }
-
-        localStorage.setItem('user', JSON.stringify({
-            email: email,
-            isLoggedIn: true
-        }));
-
-        window.location.href = '../pages/index.html'
-
-        
-    } catch (error) {
-        alert('오류가 발생했습니다: ' + error.message)
-    }
-    
-})
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    // 로그인 로직 처리
+    // 로그인 성공 시 리디렉션
+    window.location.href = '/auth/callback';
+});
 
 document.getElementById('google-login')?.addEventListener('click', async () => {
     try {
@@ -64,32 +37,13 @@ document.getElementById('google-login')?.addEventListener('click', async () => {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM 로드됨');
     
-    const kakaoLoginBtn = document.getElementById('kakao-login');
-    console.log('카카오 버튼 엘리먼트:', kakaoLoginBtn);
-    
-    if (kakaoLoginBtn) {
-        kakaoLoginBtn.addEventListener('click', async () => {
-            console.log('카카오 로그인 버튼 클릭됨');
-            
-            try {
-                const { data, error } = await supabase.auth.signInWithOAuth({
-                    provider: 'kakao',
-                    options: {
-                        redirectTo: `${window.location.origin}/pages/index.html`
-                    }
-                })
-                
-                console.log('Supabase 응답:', data);
-                
-                if (error) throw error
-                
-            } catch (error) {
-                console.error('카카오 로그인 오류:', error)
-                alert('로그인 중 오류가 발생했습니다.')
-            }
-        })
+    const kakaoButton = document.getElementById('kakaoLoginButton');
+    if (kakaoButton) {
+        kakaoButton.addEventListener('click', function() {
+            // 카카오 로그인 로직
+        });
     } else {
-        console.error('카카오 로그인 버튼을 찾을 수 없습니다.')
+        console.error('카카오 로그인 버튼을 찾을 수 없습니다.');
     }
 })
 
@@ -102,4 +56,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         }))
     }
 })
+
+// Google 로그인 성공 시 호출되는 함수
+function onGoogleSignIn(googleUser) {
+    // 사용자 정보를 가져옵니다.
+    const profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId());
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail());
+
+    // 로그인 성공 후 리디렉션
+    window.location.href = '/auth/callback';
+}
 
